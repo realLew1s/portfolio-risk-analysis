@@ -1,6 +1,6 @@
 # Fundamental Portfolio Statistics
 
-A very basic application to showcase pythons use for getting statistical attributes dynamically from a third party api, current features include:
+A very basic application to showcase pythons use for calcualting commonly used statistics for portfolio risk from a third party price history api, current features include:
   - Asset Standard Deviation, Variance & Average Returns
   - R Squared Calculation (against your target index i.e AXJO.INDX)
   - Asset Beta's (against your target index i.e. AXJO.INDX)
