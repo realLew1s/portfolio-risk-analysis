@@ -5,6 +5,7 @@ A very basic application to showcase pythons use for calcualting commonly used s
   - R Squared Calculation (against your target index i.e AXJO.INDX)
   - Asset Beta's (against your target index i.e. AXJO.INDX)
   - Weighted Portfolio Statistics (weighted standard deviation)
+  - Visualisation of distribution of movements away from the mean
 
 ![image](https://github.com/realLew1s/portfolio-risk-analysis/assets/131590570/1c9fa3c2-6554-4d52-83e7-e186bfe22585)
 
