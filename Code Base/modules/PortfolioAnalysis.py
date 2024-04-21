@@ -109,15 +109,3 @@ class WeightedPortfolioStats:
 
         return stock_one_returns, stock_two_returns
 
-
-with open('stocks.json', "r") as f:
-    data = json.load(f)
-
-inst = DataFetcher('661b4a0b955408.02864820')
-stock_data = inst.get_stock_dfs(data)
-
-cleaner = DataPreparation()
-final_df = cleaner.daily_price_change(stock_data)
-
-f_inst = WeightedPortfolioStats(final_df, data)
-f_inst.weighted_portfolio_statistics()
