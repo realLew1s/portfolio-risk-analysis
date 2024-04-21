@@ -5,6 +5,7 @@ import time
 from modules.StockAnalysis import StockStatAnalyser
 from modules.StockAnalysis import RSquaredCalculator
 from modules.StockAnalysis import AssetBetas
+from modules.PortfolioAnalysis import WeightedPortfolioStats
 
 from modules.StockAnalysis import DataPreparation
 
@@ -31,6 +32,7 @@ def menu():
     print("    [1] Std Deviation, Var & Avg Returns      ")
     print("    [2] R Squared Calculator (against a index)")
     print("    [3] Asset Beta's                          ")
+    print("    [4] Weighted Portfolio Statistics         ")
     print("                                              ")
     print("    [EXIT] to exit the application...         ")
     print("                                              ")
@@ -61,6 +63,12 @@ def menu():
         outcome = beta_calculations(datafile, index, api_key)
         if outcome == True:
             print('Generated Beta figures (Asset Betas.json). Returning to menu in 5 seconds')
+            time.sleep(5)
+            menu()
+    elif selection == '4':
+        outcome = weighted_variance(datafile, api_key)
+        if outcome == True:
+            print('Generated weighted portfolio figures (Portfolio Statistics.json). Returning to menu in 5 seconds')
             time.sleep(5)
             menu()
     elif selection.upper() == 'EXIT':
@@ -104,6 +112,17 @@ def beta_calculations(datafile, index, api_key):
     
     analysis_instance = AssetBetas(stock_df, index_df)
     analysis_instance.get_beta()
+
+    return True
+
+def weighted_variance(api_key, holdings):
+    fetcher = DataFetcher(api_key)
+    cleaner = DataPreparation()
+    stock_data = fetcher.get_stock_dfs(holdings)
+    stock_df = cleaner.daily_price_change()
+
+    w_portfolio_stats = WeightedPortfolioStats(stock_df, holdings)
+    w_portfolio_stats.weighted_portfolio_statistics()
 
     return True
 

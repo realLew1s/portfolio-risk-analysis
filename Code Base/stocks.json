@@ -1,14 +1,17 @@
 [
     {
         "stock_code": "APT",
-        "exchange_code": "AU"
+        "exchange_code": "AU",
+        "weighting": 0.333333
     },
     {
         "stock_code": "BHP",
-        "exchange_code": "AU"
+        "exchange_code": "AU",
+        "weighting": 0.333333
     }, 
     {
         "stock_code": "ADO",
-        "exchange_code": "AU"
+        "exchange_code": "AU",
+        "weighting": 0.33333
     }
 ]
