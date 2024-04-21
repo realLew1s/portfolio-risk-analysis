@@ -6,7 +6,7 @@ A very basic application to showcase pythons use for getting statistical attribu
   - Asset Beta's (against your target index i.e. AXJO.INDX)
   - Weighted Portfolio Statistics (weighted standard deviation)
 
-![image](https://github.com/realLew1s/portfolio-risk-analysis/assets/131590570/c9f8a6d4-5dfd-409b-825a-437516849d0d)
+![image](https://github.com/realLew1s/portfolio-risk-analysis/assets/131590570/1c9fa3c2-6554-4d52-83e7-e186bfe22585)
 
 ## Requirements
 
@@ -30,7 +30,7 @@ Requires you to create a JSON file with the following elements, for dynamic data
 
 ## TODO
 
-- Add a visualisation to show the distribution of an asset exceeding 1 std deviation in daily shareprice movement
+- ~~Add a visualisation to show the distribution of an asset exceeding 1 std deviation in daily shareprice movement~~
 - Ability to set your period for the data/calculations i.e. daily/weekly/monthly/quarterly
 - Ability to load a shortlist and identify the best option to add to your portfolio based on the new portfolio beta as a result of the new addition
 - Look at adding simulation/portfolio testing i.e. (Monte Carlos)
