@@ -6,5 +6,9 @@
     {
         "stock_code": "WBC",
         "exchange_code": "AU"
+    },
+    {
+        "stock_code": "A200",
+        "exchange_code": "AU"
     }
 ]

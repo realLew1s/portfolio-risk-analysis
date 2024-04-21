@@ -1,6 +1,5 @@
-import requests
-import json
-import pandas as pd
+import requests # type: ignore
+import pandas as pd # type: ignore
 import sys
 
 class DataFetcher:
@@ -26,13 +25,8 @@ class DataFetcher:
     
     def index_data_fetcher(self, index_code):
         try:
-            data_request = requests.get(f"{self.base_url}{index_code}?api_token{self.api_key}&fmt=json").json()
+            data_request = requests.get(f"{self.base_url}{index_code}?api_token={self.api_key}&fmt=json").json()
         except:
             sys.exit(f"Fatal Error: Could not fetch data for {index_code}")
         return pd.DataFrame.from_dict(data_request)
 
-
-with open('stocks.json', "r") as f:
-    data = json.load(f)
-inst = DataFetcher('661b4a0b955408.02864820')
-inst.get_stock_dfs(data)
