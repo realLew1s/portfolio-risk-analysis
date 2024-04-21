@@ -1,14 +1,22 @@
 [
     {
         "stock_code": "CBA",
-        "exchange_code": "AU"
+        "exchange_code": "AU",
+        "weighting": 0.25
     },
     {
         "stock_code": "WBC",
-        "exchange_code": "AU"
+        "exchange_code": "AU",
+        "weighting": 0.25
     },
     {
-        "stock_code": "A200",
-        "exchange_code": "AU"
+        "stock_code": "NAB",
+        "exchange_code": "AU",
+        "weighting": 0.25
+    },
+    {
+        "stock_code": "ANZ",
+        "exchange_code": "AU",
+        "weighting": 0.25
     }
 ]

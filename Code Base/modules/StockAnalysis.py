@@ -3,6 +3,8 @@ import pandas as pd # type: ignore
 import statsmodels.api as sm # type: ignore
 import os
 import sys
+import numpy as np
+import itertools
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) # Enables access to utils from this dir
 
@@ -85,7 +87,7 @@ class RSquaredCalculator:
         data = []
         for entry in self.unique_stocks:
             stock_df = self.stock_data[self.stock_data['stock_code'] == entry].copy()
-            y_axis, x_axis = self.match_timescale(stock_df, entry)
+            y_axis, x_axis = self.match_timescale(stock_df)
 
             x_axis = sm.add_constant(x_axis)
             model = sm.OLS(y_axis, x_axis)
@@ -100,9 +102,51 @@ class RSquaredCalculator:
         with open('rsquared_data.json', "w") as f:
             json.dump(data, f, indent=1)
 
-    def match_timescale(self, stock_df, stock_code):
+    def match_timescale(self, stock_df):
         merged_df = stock_df.merge(self.index_data, on='date', how='inner')
         stock_returns = merged_df['change_percentage_x'].tolist()
         index_returns = merged_df['change_percentage_y'].tolist()
         return stock_returns, index_returns
         
+class AssetBetas:
+    def __init__(self, stock_data, index_data):
+        self.stock_data = stock_data
+        self.index_data = index_data
+
+    def get_beta(self):
+        unique_data = self.stock_data['stock_code'].unique()
+        data = []
+        for entry in unique_data:
+            stock_df = self.stock_data[self.stock_data['stock_code'] == entry].copy()
+            stock_returns, index_returns = self.match_timescale(stock_df)
+
+            stock_mean = np.mean(stock_returns)
+            index_mean = np.mean(index_returns)
+
+            index_variance = np.var(index_returns)
+            if index_variance == 0:
+                beta = 0
+            else:
+                covariance = sum((s_ret - stock_mean)*(i_ret - index_mean) for s_ret, i_ret in zip(stock_returns, index_returns)) / (len(stock_returns) - 1)
+                beta = covariance / index_variance
+        
+            temp_dict = {
+                "stock_code": entry,
+                "beta": beta
+            }
+            
+            data.append(temp_dict)
+        
+        with open('Asset Betas.json', "w") as f:
+            json.dump(data, f, indent=1)
+        return data
+
+
+    def match_timescale(self, stock_df):
+        merged_df = stock_df.merge(self.index_data, on='date', how='inner')
+        returns_stock = merged_df['change_percentage_x'].tolist()
+        returns_index = merged_df['change_percentage_y'].tolist()
+        print(f"{len(returns_stock)} vs {len(returns_index)}")
+        print(merged_df.head())
+
+        return returns_stock, returns_index 
