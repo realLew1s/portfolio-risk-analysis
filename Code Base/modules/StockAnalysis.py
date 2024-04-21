@@ -146,7 +146,5 @@ class AssetBetas:
         merged_df = stock_df.merge(self.index_data, on='date', how='inner')
         returns_stock = merged_df['change_percentage_x'].tolist()
         returns_index = merged_df['change_percentage_y'].tolist()
-        print(f"{len(returns_stock)} vs {len(returns_index)}")
-        print(merged_df.head())
 
         return returns_stock, returns_index 
