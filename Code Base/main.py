@@ -1,11 +1,13 @@
 import sys
 import json 
 import time
+import os
 
 from modules.StockAnalysis import StockStatAnalyser
 from modules.StockAnalysis import RSquaredCalculator
 from modules.StockAnalysis import AssetBetas
 from modules.PortfolioAnalysis import WeightedPortfolioStats
+from modules.Visualisations import BreachStdVisual
 
 from modules.StockAnalysis import DataPreparation
 
@@ -21,6 +23,7 @@ def main():
 
 
 def menu():
+    os.system('cls')
     print("----------------------------------------------")
     print("   ______           __     ______       __    ")
     print("  / __/ /____  ____/ /__  / __/ /____ _/ /____")
@@ -33,6 +36,7 @@ def menu():
     print("    [2] R Squared Calculator (against a index)")
     print("    [3] Asset Beta's                          ")
     print("    [4] Weighted Portfolio Statistics         ")
+    print("    [5] Visualize Distribution around mean    ")
     print("                                              ")
     print("    [EXIT] to exit the application...         ")
     print("                                              ")
@@ -69,6 +73,12 @@ def menu():
         outcome = weighted_variance(datafile, api_key)
         if outcome == True:
             print('Generated weighted portfolio figures (Portfolio Statistics.json). Returning to menu in 5 seconds')
+            time.sleep(5)
+            menu()
+    elif selection == '5':
+        outcome = v_distribution_around_mean(datafile, api_key)
+        if outcome == True:
+            print('Completed. Returning to menu in 5 seconds')
             time.sleep(5)
             menu()
     elif selection.upper() == 'EXIT':
@@ -123,6 +133,20 @@ def weighted_variance(holdings, api_key):
 
     w_portfolio_stats = WeightedPortfolioStats(stock_df, holdings)
     w_portfolio_stats.weighted_portfolio_statistics()
+
+    return True
+
+def v_distribution_around_mean(datafile, api_key):
+    fetcher = DataFetcher(api_key)
+    cleaner = DataPreparation()
+    stock_data = fetcher.get_stock_dfs(datafile)
+    stock_df = cleaner.daily_price_change(stock_data)
+
+    analysis_instance = StockStatAnalyser(stock_df, datafile)
+    stock_attributes = analysis_instance.stock_attributes()
+
+    visualisation = BreachStdVisual(stock_df, stock_attributes)
+    visualisation.stock_picker()
 
     return True
 

@@ -1,0 +1,32 @@
+[
+ {
+  "stock_code": "A200",
+  "mean_returns": -0.00045956609837050023,
+  "std_returns": 0.0076201345965503185,
+  "var_returns": 5.8066451269543085e-05
+ },
+ {
+  "stock_code": "VDBA",
+  "mean_returns": -0.0010210857023841282,
+  "std_returns": 0.005003989994983782,
+  "var_returns": 2.503991586989779e-05
+ },
+ {
+  "stock_code": "VAP",
+  "mean_returns": -0.001272366682241689,
+  "std_returns": 0.010872252692941986,
+  "var_returns": 0.00011820587861918425
+ },
+ {
+  "stock_code": "MVR",
+  "mean_returns": -0.0012518856968515828,
+  "std_returns": 0.008555666960733177,
+  "var_returns": 7.319943714298128e-05
+ },
+ {
+  "stock_code": "BET",
+  "mean_returns": -0.002826345719645006,
+  "std_returns": 0.05610444362911521,
+  "var_returns": 0.003147708594932566
+ }
+]
