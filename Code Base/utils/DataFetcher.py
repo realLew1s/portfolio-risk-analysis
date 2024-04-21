@@ -31,8 +31,3 @@ class DataFetcher:
             sys.exit(f"Fatal Error: Could not fetch data for {index_code}")
         return pd.DataFrame.from_dict(data_request)
 
-
-with open('stocks.json', "r") as f:
-    data = json.load(f)
-inst = DataFetcher('661b4a0b955408.02864820')
-inst.get_stock_dfs(data)
