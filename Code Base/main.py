@@ -115,11 +115,11 @@ def beta_calculations(datafile, index, api_key):
 
     return True
 
-def weighted_variance(api_key, holdings):
+def weighted_variance(holdings, api_key):
     fetcher = DataFetcher(api_key)
     cleaner = DataPreparation()
     stock_data = fetcher.get_stock_dfs(holdings)
-    stock_df = cleaner.daily_price_change()
+    stock_df = cleaner.daily_price_change(stock_data)
 
     w_portfolio_stats = WeightedPortfolioStats(stock_df, holdings)
     w_portfolio_stats.weighted_portfolio_statistics()

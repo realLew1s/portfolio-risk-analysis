@@ -1,17 +1,27 @@
 [
     {
-        "stock_code": "APT",
+        "stock_code": "A200",
         "exchange_code": "AU",
-        "weighting": 0.333333
+        "weighting": 0.2978
     },
     {
-        "stock_code": "BHP",
+        "stock_code": "VDBA",
         "exchange_code": "AU",
-        "weighting": 0.333333
+        "weighting": 0.3037
     }, 
     {
-        "stock_code": "ADO",
+        "stock_code": "VAP",
         "exchange_code": "AU",
-        "weighting": 0.33333
+        "weighting": 0.2962
+    },
+    {
+        "stock_code": "MVR",
+        "exchange_code": "AU",
+        "weighting": 0.0549
+    }, 
+    {
+        "stock_code": "BET",
+        "exchange_code": "AU",
+        "weighting": 0.0475
     }
 ]
