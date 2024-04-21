@@ -106,16 +106,3 @@ class RSquaredCalculator:
         index_returns = merged_df['change_percentage_y'].tolist()
         return stock_returns, index_returns
         
-with open('stocks.json', "r") as f:
-    data = json.load(f)
-inst = DataFetcher('661b4a0b955408.02864820')
-
-stocks_df = inst.get_stock_dfs(data)
-index = inst.index_data_fetcher('AXJO.INDX')
-
-data_prep_inst = DataPreparation()
-stock_df = data_prep_inst.daily_price_change(stocks_df)
-index_df = data_prep_inst.daily_price_change(index)
-
-rsq_inst = RSquaredCalculator(stock_df, index_df)
-rsq = rsq_inst.calculate_rsquared()
