@@ -1,10 +1,11 @@
 # Fundamental Portfolio Statistics
 
-A very basic application to showcase pythons use for getting statistical attributes dynamically from a third party api, current features include:
+A very basic application to showcase pythons use for calcualting commonly used statistics for portfolio risk from a third party price history api, current features include:
   - Asset Standard Deviation, Variance & Average Returns
   - R Squared Calculation (against your target index i.e AXJO.INDX)
   - Asset Beta's (against your target index i.e. AXJO.INDX)
   - Weighted Portfolio Statistics (weighted standard deviation)
+  - Visualisation of distribution of movements away from the mean
 
 ![image](https://github.com/realLew1s/portfolio-risk-analysis/assets/131590570/1c9fa3c2-6554-4d52-83e7-e186bfe22585)
 
@@ -32,6 +33,7 @@ Requires you to create a JSON file with the following elements, for dynamic data
 
 - ~~Add a visualisation to show the distribution of an asset exceeding 1 std deviation in daily shareprice movement~~
 - Ability to set your period for the data/calculations i.e. daily/weekly/monthly/quarterly
+- Ability to load assets, and holding commencement date to get the retrospective daily return of your portfolio (assuming there is reinvestment this I believe is useful)
 - Ability to load a shortlist and identify the best option to add to your portfolio based on the new portfolio beta as a result of the new addition
 - Look at adding simulation/portfolio testing i.e. (Monte Carlos)
 
