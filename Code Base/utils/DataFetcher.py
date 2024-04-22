@@ -3,8 +3,9 @@ import pandas as pd # type: ignore
 import sys
 
 class DataFetcher:
-    def __init__(self, api_key):
+    def __init__(self, api_key, period):
         self.api_key = api_key
+        self.period = period
         self.base_url = 'https://eodhd.com/api/eod/'
 
     def get_stock_dfs(self, holdings):
@@ -18,14 +19,14 @@ class DataFetcher:
 
     def fetch_data(self, stock_code, exchange_code):
         try:
-            data_request = requests.get(f"{self.base_url}{stock_code}.{exchange_code}?api_token={self.api_key}&fmt=json").json()
+            data_request = requests.get(f"{self.base_url}{stock_code}.{exchange_code}?api_token={self.api_key}&period={self.period}&fmt=json").json()
         except:
             sys.exit(f"Fatal Error: Could not fetch data for {stock_code}.{exchange_code}")
         return data_request
     
     def index_data_fetcher(self, index_code):
         try:
-            data_request = requests.get(f"{self.base_url}{index_code}?api_token={self.api_key}&from=2020-01-01&fmt=json").json()
+            data_request = requests.get(f"{self.base_url}{index_code}?api_token={self.api_key}&period={self.period}&fmt=json").json()
         except:
             sys.exit(f"Fatal Error: Could not fetch data for {index_code}")
         return pd.DataFrame.from_dict(data_request)
