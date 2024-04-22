@@ -50,33 +50,38 @@ def menu():
         datafile = json.load(f)
 
     if selection == '1':
-        outcome = stock_stats(datafile, api_key)
+        fetched_data_period = input('Please input time period, day = d, week = w, m = month: ')
+        outcome = stock_stats(datafile, api_key, fetched_data_period)
         if outcome == True:
             print('Generated Successfully (Indiv Stock Attributes.json), returning to menu in 5 seconds')
             time.sleep(5)
             menu()
     elif selection == '2':
+        fetched_data_period = input('Please input time period, day = d, week = w, m = month: ')
         index = input('Please input a index to score against: ')
-        outcome = rsquared_calculator(datafile, index, api_key)
+        outcome = rsquared_calculator(datafile, index, api_key, fetched_data_period)
         if outcome == True:
             print('Generated RSquared figures (rsquared_data.json). Returning to menu in 5 seconds')
             time.sleep(5)
             menu()
     elif selection == '3':
+        fetched_data_period = input('Please input time period, day = d, week = w, m = month: ')
         index = input('Please select index to calculate Beta against: ')
-        outcome = beta_calculations(datafile, index, api_key)
+        outcome = beta_calculations(datafile, index, api_key, fetched_data_period)
         if outcome == True:
             print('Generated Beta figures (Asset Betas.json). Returning to menu in 5 seconds')
             time.sleep(5)
             menu()
     elif selection == '4':
-        outcome = weighted_variance(datafile, api_key)
+        fetched_data_period = input('Please input time period, day = d, week = w, m = month: ')
+        outcome = weighted_variance(datafile, api_key, fetched_data_period)
         if outcome == True:
             print('Generated weighted portfolio figures (Portfolio Statistics.json). Returning to menu in 5 seconds')
             time.sleep(5)
             menu()
     elif selection == '5':
-        outcome = v_distribution_around_mean(datafile, api_key)
+        fetched_data_period = input('Please input time period, day = d, week = w, m = month: ')
+        outcome = v_distribution_around_mean(datafile, api_key, fetched_data_period)
         if outcome == True:
             print('Completed. Returning to menu in 5 seconds')
             time.sleep(5)
@@ -84,8 +89,8 @@ def menu():
     elif selection.upper() == 'EXIT':
         sys.exit('Exiting...')
 
-def stock_stats(holdings_file, api_key):
-    fetcher = DataFetcher(api_key)
+def stock_stats(holdings_file, api_key, fetched_data_period):
+    fetcher = DataFetcher(api_key, fetched_data_period)
     get_stock_data = fetcher.get_stock_dfs(holdings_file)
     cleaner = DataPreparation()
     stock_df = cleaner.daily_price_change(get_stock_data)
@@ -95,8 +100,8 @@ def stock_stats(holdings_file, api_key):
 
     return True
 
-def rsquared_calculator(datafile, index_code, api_key):
-    fetcher = DataFetcher(api_key)
+def rsquared_calculator(datafile, index_code, api_key, fetched_data_period):
+    fetcher = DataFetcher(api_key, fetched_data_period)
     cleaner = DataPreparation()
     
     stock_initial_df = fetcher.get_stock_dfs(datafile)
@@ -110,8 +115,8 @@ def rsquared_calculator(datafile, index_code, api_key):
 
     return True
 
-def beta_calculations(datafile, index, api_key):
-    fetcher = DataFetcher(api_key)
+def beta_calculations(datafile, index, api_key, fetched_data_period):
+    fetcher = DataFetcher(api_key, fetched_data_period)
     cleaner = DataPreparation()
 
     stock_initial_df = fetcher.get_stock_dfs(datafile)
@@ -125,8 +130,8 @@ def beta_calculations(datafile, index, api_key):
 
     return True
 
-def weighted_variance(holdings, api_key):
-    fetcher = DataFetcher(api_key)
+def weighted_variance(holdings, api_key, fetched_data_period):
+    fetcher = DataFetcher(api_key, fetched_data_period)
     cleaner = DataPreparation()
     stock_data = fetcher.get_stock_dfs(holdings)
     stock_df = cleaner.daily_price_change(stock_data)
@@ -136,8 +141,8 @@ def weighted_variance(holdings, api_key):
 
     return True
 
-def v_distribution_around_mean(datafile, api_key):
-    fetcher = DataFetcher(api_key)
+def v_distribution_around_mean(datafile, api_key, fetched_data_period):
+    fetcher = DataFetcher(api_key, fetched_data_period)
     cleaner = DataPreparation()
     stock_data = fetcher.get_stock_dfs(datafile)
     stock_df = cleaner.daily_price_change(stock_data)
