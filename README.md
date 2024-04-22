@@ -32,7 +32,7 @@ Requires you to create a JSON file with the following elements, for dynamic data
 ## TODO
 
 - ~~Add a visualisation to show the distribution of an asset exceeding 1 std deviation in daily shareprice movement~~
-- Ability to set your period for the data/calculations i.e. daily/weekly/monthly/quarterly
+- ~~Ability to set your period for the data/calculations i.e. daily/weekly/monthly/quarterly~~
 - Ability to load assets, and holding commencement date to get the retrospective daily return of your portfolio (assuming there is reinvestment this I believe is useful)
 - Ability to load a shortlist and identify the best option to add to your portfolio based on the new portfolio beta as a result of the new addition
 - Look at adding simulation/portfolio testing i.e. (Monte Carlos)
