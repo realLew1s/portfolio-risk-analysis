@@ -127,3 +127,60 @@ class PortfolioWeightedBeta:
 
         print(f"Weighted Portfolio Beta: {weighted_portfolio_beta}")
         return weighted_portfolio_beta
+    
+class AdditionalStockImpact:
+    def __init__(self, stock_data, index_data, stock_list, shortlist_data, shortlist):
+        self.stock_data = stock_data
+        self.index_data = index_data
+        self.shortlist_data = shortlist_data
+
+        self.shortlist = shortlist
+        self.stock_list = stock_list
+    
+    def calculate_best_option(self):
+        
+        # I under stand this is double handling of the betas -> gets calculated again in PortfolioWeightedBeta (this will be updated at a later date)
+        portfolio_asset_betas = AssetBetas(self.stock_data, self.index_data)
+        asset_betas = portfolio_asset_betas.get_beta()
+        asset_betas_df = pd.DataFrame().from_dict(asset_betas)
+
+        portfolio_weighted_beta = PortfolioWeightedBeta(self.stock_data, self.index_data, self.stock_list)
+        weighted_pf_beta = portfolio_weighted_beta.weighted_portfolio_beta()
+        
+        shortlist_asset_betas = AssetBetas(self.shortlist_data, self.index_data)
+        shortlist_betas = shortlist_asset_betas.get_beta()
+        shortlist_betas_df = pd.DataFrame().from_dict(shortlist_betas)
+
+        effect_of_new_asset = []
+        for item in self.shortlist:
+            adj_folio_weightings = []
+            for x in self.stock_list:
+                new_weighting = x['weighting'] / (1 + item['proposed_weighting'])
+                asset_beta = asset_betas_df[asset_betas_df['stock_code'] == x['stock_code']]['beta'].values[0]
+                returned_dict = {
+                    "stock_code": x['stock_code'],
+                    "adj_weighting": new_weighting,
+                    "beta": asset_beta
+                }
+                adj_folio_weightings.append(returned_dict)
+            
+            new_weighted_beta = shortlist_betas_df[shortlist_betas_df['stock_code'] == item['stock_code']]['beta'].values[0]
+
+            new_folio_weighting = new_weighted_beta * item['proposed_weighting']
+
+            for j in adj_folio_weightings:
+                new_folio_weighting += j['adj_weighting'] * j['beta']
+                
+            potential_beta = {
+                "additional_asset": item['stock_code'],
+                "new_folio_weighting": new_folio_weighting
+            }
+            effect_of_new_asset.append(potential_beta)
+        
+        with open('Effect of new asset.json', "w") as f:
+            json.dump(effect_of_new_asset, f, indent=1)
+        
+        return effect_of_new_asset
+
+
+            

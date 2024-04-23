@@ -7,6 +7,7 @@ A very basic application to showcase pythons use for calcualting commonly used s
   - Weighted Portfolio Statistics (weighted standard deviation)
   - Visualisation of distribution of movements away from the mean
   - Weighted Portfolio Beta
+  - Additional Asset impact on overall weighted portfolio Beta
 
 ![image](https://github.com/realLew1s/portfolio-risk-analysis/assets/131590570/1c9fa3c2-6554-4d52-83e7-e186bfe22585)
 
@@ -30,12 +31,23 @@ Requires you to create a JSON file with the following elements, for dynamic data
 }
 ```
 
+for shortlist data (i.e. for testing the effect of additional assets on weighted portfolio beta). It's important that you use a consistent weighting for all assets to ensure the output is accurate. (I personally use this when it is a marginal decision between the purchase of two assets and I either want to increase/decrease my weighted portfolio beta)
+
+```
+{
+  "stock_code": "BHP",
+  "exchange_code": "AU",
+  "proposed_weighting": 0.25
+}
+```
+
+
 ## TODO
 
 - ~~Add a visualisation to show the distribution of an asset exceeding 1 std deviation in daily shareprice movement~~
 - ~~Ability to set your period for the data/calculations i.e. daily/weekly/monthly/quarterly~~
 - Ability to load assets, and holding commencement date to get the retrospective daily return of your portfolio (assuming there is reinvestment this I believe is useful)
-- Ability to load a shortlist and identify the best option to add to your portfolio based on the new portfolio beta as a result of the new addition
+- ~~Ability to load a shortlist and identify the best option to add to your portfolio based on the new portfolio beta as a result of the new addition~~
 - Look at adding simulation/portfolio testing i.e. (Monte Carlos)
 
 ## Final Notes
