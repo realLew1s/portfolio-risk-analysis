@@ -9,7 +9,7 @@ A very basic application to showcase pythons use for calcualting commonly used s
   - Weighted Portfolio Beta
   - Additional Asset impact on overall weighted portfolio Beta
 
-![image](https://github.com/realLew1s/portfolio-risk-analysis/assets/131590570/1c9fa3c2-6554-4d52-83e7-e186bfe22585)
+![image](https://github.com/realLew1s/portfolio-risk-analysis/assets/131590570/c1770286-d0e8-46c3-a948-d7a0f9fb1479)
 
 ## Requirements
 
