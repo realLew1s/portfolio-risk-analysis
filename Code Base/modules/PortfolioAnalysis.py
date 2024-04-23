@@ -173,7 +173,10 @@ class AdditionalStockImpact:
                 
             potential_beta = {
                 "additional_asset": item['stock_code'],
-                "new_folio_weighting": new_folio_weighting
+                "asset_beta": new_weighted_beta,
+                "proposed_weighting": item['proposed_weighting'],
+                "portfolio_weighted_beta_with_asset": new_folio_weighting,
+                "original_portfolio_weighted_beta": weighted_pf_beta,
             }
             effect_of_new_asset.append(potential_beta)
         

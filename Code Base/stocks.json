@@ -2,26 +2,26 @@
     {
         "stock_code": "A200",
         "exchange_code": "AU",
-        "weighting": 0.2978
+        "weighting": 0.2966
     },
     {
         "stock_code": "VDBA",
         "exchange_code": "AU",
-        "weighting": 0.3037
+        "weighting": 0.2997
     }, 
     {
         "stock_code": "VAP",
         "exchange_code": "AU",
-        "weighting": 0.2962
+        "weighting": 0.29724
     },
     {
         "stock_code": "MVR",
         "exchange_code": "AU",
-        "weighting": 0.0549
+        "weighting": 0.05427
     }, 
     {
         "stock_code": "BET",
         "exchange_code": "AU",
-        "weighting": 0.0475
+        "weighting": 0.05216
     }
 ]

@@ -8,6 +8,8 @@ from modules.StockAnalysis import RSquaredCalculator
 from modules.StockAnalysis import AssetBetas
 from modules.PortfolioAnalysis import WeightedPortfolioStats
 from modules.Visualisations import BreachStdVisual
+from modules.PortfolioAnalysis import PortfolioWeightedBeta
+from modules.PortfolioAnalysis import AdditionalStockImpact
 
 from modules.StockAnalysis import DataPreparation
 
@@ -37,6 +39,8 @@ def menu():
     print("    [3] Asset Beta's                          ")
     print("    [4] Weighted Portfolio Statistics         ")
     print("    [5] Visualize Distribution around mean    ")
+    print("    [6] Weighted Portfolio Beta               ")
+    print("    [7] Additional Asset Beta Impact          ")
     print("                                              ")
     print("    [EXIT] to exit the application...         ")
     print("                                              ")
@@ -84,6 +88,30 @@ def menu():
         outcome = v_distribution_around_mean(datafile, api_key, fetched_data_period)
         if outcome == True:
             print('Completed. Returning to menu in 5 seconds')
+            time.sleep(5)
+            menu()
+    elif selection == '6':
+        fetched_data_period = input('Please input time period, day = d, week = w, m = month: ')
+        index = input('Please input index to calculate Beta against: ')
+        outcome = weighted_portfolio_beta(datafile, index, api_key, fetched_data_period)
+        if outcome == True:
+            print('Completed. Returning to menu in 5 seconds')
+            time.sleep(5)
+            menu()
+    elif selection == '7':
+        fetched_data_period = input('Please input time period, day = d, week = w, m = month: ')
+        index = input('Please input index to calculate Beta against: ')
+        shortlist_input = input('Please input the name of the shortlist file (i.e. shortlist.json): ')
+        try:
+            with open(shortlist_input, "r") as f:
+                shortlist = json.load(f)
+        except:
+            print('Error, unk file sending back to menu..')
+            time.sleep(0.5)
+            menu()
+        outcome = additional_stock_impact(datafile, index, shortlist, api_key, fetched_data_period)
+        if outcome == True:
+            print('Outputted options, and impact on the overall portfolio (Effect of new asset.json). Returning to menu in 5 seconds')
             time.sleep(5)
             menu()
     elif selection.upper() == 'EXIT':
@@ -153,6 +181,39 @@ def v_distribution_around_mean(datafile, api_key, fetched_data_period):
     visualisation = BreachStdVisual(stock_df, stock_attributes)
     visualisation.stock_picker()
 
+    return True
+
+def weighted_portfolio_beta(datafile, index, api_key, fetched_data_period):
+    fetcher = DataFetcher(api_key, fetched_data_period)
+    cleaner = DataPreparation()
+
+    stock_data = fetcher.get_stock_dfs(datafile)
+    stock_df = cleaner.daily_price_change(stock_data)
+
+    index_data = fetcher.index_data_fetcher(index)
+    index_df = cleaner.daily_price_change(index_data)
+
+    weighted_beta = PortfolioWeightedBeta(stock_df, index_df, datafile)
+    weighted_beta.weighted_portfolio_beta()
+
+    return True
+
+def additional_stock_impact(datafile, index, shortlist, api_key, fetched_data_period):
+    fetcher = DataFetcher(api_key, fetched_data_period)
+    cleaner = DataPreparation()
+
+    stock_data = fetcher.get_stock_dfs(datafile)
+    stock_df = cleaner.daily_price_change(stock_data)
+
+    shortlist_data = fetcher.get_stock_dfs(shortlist)
+    shortlist_df = cleaner.daily_price_change(shortlist_data)
+
+    index_data = fetcher.index_data_fetcher(index)
+    index_df = cleaner.daily_price_change(index_data)
+
+    asset_testing_inst = AdditionalStockImpact(stock_df, index_df, datafile, shortlist_df, shortlist)
+    asset_testing_inst.calculate_best_option()
+    
     return True
 
 if __name__ == '__main__':
