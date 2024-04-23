@@ -14,7 +14,7 @@ from itertools import combinations
 
 from utils.DataFetcher import DataFetcher
 from modules.StockAnalysis import DataPreparation
-
+from modules.StockAnalysis import AssetBetas
 
 class WeightedPortfolioStats:
     def __init__(self, stock_data, stock_list):
@@ -109,3 +109,21 @@ class WeightedPortfolioStats:
 
         return stock_one_returns, stock_two_returns
 
+class PortfolioWeightedBeta:
+    def __init__(self, stock_data, index_data, stock_list):
+        fetch_betas = AssetBetas(stock_data, index_data)
+        self.beta_data = fetch_betas.get_beta()
+        self.stock_list = stock_list
+
+    def weighted_portfolio_beta(self):
+        weighted_portfolio_beta = 0
+        for item in self.stock_list:
+            for x in self.beta_data:
+                if item['stock_code'] == x['stock_code']:
+                    weighted_portfolio_beta += item['weighting'] * x['beta']
+        
+        with open('Weighted Portfolio Beta.json', "w") as f:
+            json.dump(weighted_portfolio_beta, f, indent=1)
+
+        print(f"Weighted Portfolio Beta: {weighted_portfolio_beta}")
+        return weighted_portfolio_beta
