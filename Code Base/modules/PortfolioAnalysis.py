@@ -184,6 +184,3 @@ class AdditionalStockImpact:
             json.dump(effect_of_new_asset, f, indent=1)
         
         return effect_of_new_asset
-
-
-            

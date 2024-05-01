@@ -8,6 +8,7 @@ A very basic application to showcase pythons use for calcualting commonly used s
   - Visualisation of distribution of movements away from the mean
   - Weighted Portfolio Beta
   - Additional Asset impact on overall weighted portfolio Beta
+  - Correlation Coefficient between each individual assets
 
 ![image](https://github.com/realLew1s/portfolio-risk-analysis/assets/131590570/c1770286-d0e8-46c3-a948-d7a0f9fb1479)
 
@@ -21,12 +22,13 @@ Requires an API key to EODHD which is an API provider of EOD historical price da
 python main.py <portfolio_assets> <api_key>
 ```
 
-Requires you to create a JSON file with the following elements, for dynamic data sourcing. Please note any portfolios total weighting should add to 1:
+Requires you to create a JSON file with the following elements, for dynamic data sourcing. Please note any portfolios total weighting should add to 1, additionally the classification is up to you but is a mandatory element now. If anyone is actually using this, and you dont have a weighting just set them all to "GENERIC" or any placeholder.
 
 ```
 {
   "stock_code": "CBA",
   "exchange_code": "AU",
+  "classification": "Diversified"
   "weighting": 1
 }
 ```
@@ -51,6 +53,7 @@ for shortlist data (i.e. for testing the effect of additional assets on weighted
 - Look at adding simulation/portfolio testing i.e. (Monte Carlos)
 - Add classification level statistics (for instance if a portfolio has allocated 20% into the resource sector and this is made up of 5+ individual equities it is useful to understand the STD, VAR, BETA of the overall 20% class)
 - Add an ability to measure the correlation and correlations strength between an asset i.e. BHP.ASX and the commodity price of Iron Ore
+- Weighted classification correlation (self explanatory, to measure correlation between asset classes to enable risk based decision making)
 
 ## Final Notes
 

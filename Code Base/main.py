@@ -10,7 +10,7 @@ from modules.PortfolioAnalysis import WeightedPortfolioStats
 from modules.Visualisations import BreachStdVisual
 from modules.PortfolioAnalysis import PortfolioWeightedBeta
 from modules.PortfolioAnalysis import AdditionalStockImpact
-
+from modules.StockAnalysis import AssetCovariances
 from modules.StockAnalysis import DataPreparation
 
 
@@ -41,6 +41,7 @@ def menu():
     print("    [5] Visualize Distribution around mean    ")
     print("    [6] Weighted Portfolio Beta               ")
     print("    [7] Additional Asset Beta Impact          ")
+    print("    [8] Correlation Coefficient               ")
     print("                                              ")
     print("    [EXIT] to exit the application...         ")
     print("                                              ")
@@ -112,6 +113,13 @@ def menu():
         outcome = additional_stock_impact(datafile, index, shortlist, api_key, fetched_data_period)
         if outcome == True:
             print('Outputted options, and impact on the overall portfolio (Effect of new asset.json). Returning to menu in 5 seconds')
+            time.sleep(5)
+            menu()
+    elif selection == '8':
+        fetched_data_period = input('Please input time period, day = d, week = w, m = month: ')
+        outcome = assess_covariance_inst(datafile, fetched_data_period, api_key)
+        if outcome == True:
+            print("Outputted asset correlations... returning to menu in 5 seconds")
             time.sleep(5)
             menu()
     elif selection.upper() == 'EXIT':
@@ -214,6 +222,19 @@ def additional_stock_impact(datafile, index, shortlist, api_key, fetched_data_pe
     asset_testing_inst = AdditionalStockImpact(stock_df, index_df, datafile, shortlist_df, shortlist)
     asset_testing_inst.calculate_best_option()
     
+    return True
+
+def assess_covariance_inst(datafile, fetched_data_period, api_key):
+    fetcher = DataFetcher(api_key, fetched_data_period)
+    cleaner = DataPreparation()
+
+    stock_data = fetcher.get_stock_dfs(datafile)
+    stock_df = cleaner.daily_price_change(stock_data)
+
+    covar_inst = AssetCovariances(stock_df, datafile)
+    
+    covariance_out = covar_inst.assess_covariance()
+
     return True
 
 if __name__ == '__main__':

@@ -14,6 +14,7 @@ class DataFetcher:
             stock_data = self.fetch_data(entry['stock_code'], entry['exchange_code'])
             stock_df = pd.DataFrame.from_dict(stock_data)
             stock_df['stock_code'] = entry['stock_code']
+            stock_df['classification'] = entry['classification']
             dictionary_data.append(stock_df)
         return pd.concat(dictionary_data, ignore_index=True)
 

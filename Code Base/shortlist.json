@@ -1,32 +1,17 @@
 [
     {
-        "stock_code": "WIRE",
+        "stock_code": "ARF",
         "exchange_code": "AU",
-        "proposed_weighting": 0.15
+        "proposed_weighting": 0.05
+    },
+    {
+        "stock_code": "NSR",
+        "exchange_code": "AU",
+        "proposed_weighting": 0.05
     },
     {
         "stock_code": "MNRS",
         "exchange_code": "AU",
-        "proposed_weighting": 0.15
-    },
-    {
-        "stock_code": "QRE",
-        "exchange_code": "AU",
-        "proposed_weighting": 0.15
-    },
-    {
-        "stock_code": "MVR",
-        "exchange_code": "AU",
-        "proposed_weighting": 0.15
-    },
-    {
-        "stock_code": "GDX",
-        "exchange_code": "AU",
-        "proposed_weighting": 0.15
-    },
-    {
-        "stock_code": "XMET",
-        "exchange_code": "AU",
-        "proposed_weighting": 0.15
+        "proposed_weighting": 0.05
     }
 ]

@@ -5,6 +5,7 @@ import os
 import sys
 import numpy as np
 import itertools
+from itertools import combinations 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) # Enables access to utils from this dir
 
@@ -148,3 +149,54 @@ class AssetBetas:
         returns_index = merged_df['change_percentage_y'].tolist()
 
         return returns_stock, returns_index 
+
+class AssetCovariances:
+    def __init__(self, stock_data, stock_list):
+        self.stock_data = stock_data
+        self.stock_list = stock_list
+        self.unique_stocks = self.stock_data['stock_code'].unique()
+        print(self.unique_stocks)
+
+    def assess_covariance(self):
+        asset_combos = combinations(self.unique_stocks, 2)
+        out = []
+        for x in asset_combos:
+            asset_one = x[0]
+            asset_two = x[1]
+
+            asset_one_df = self.stock_data[self.stock_data['stock_code'] == asset_one].copy()
+            asset_two_df = self.stock_data[self.stock_data['stock_code'] == asset_two].copy()
+
+            asset_one_returns, asset_two_returns = self.match_timescale(asset_one_df, asset_two_df)
+
+            asset_one_avg = np.mean(asset_one_returns)
+            asset_two_avg = np.mean(asset_two_returns)
+
+            asset_one_std = np.std(asset_one_returns)
+            asset_two_std = np.std(asset_two_returns)
+
+            covariance = sum((a1 - asset_one_avg)*(a2 - asset_two_avg) for a1, a2 in zip(asset_one_returns, asset_two_returns)) / (len(asset_one_returns) - 1)
+
+            correlation = covariance / (asset_one_std*asset_two_std)
+
+            json_out = {
+                "a1": asset_one,
+                "a2": asset_two,
+                "correlation": correlation
+            }
+
+            out.append(json_out)
+        
+        with open('correlation-data.json', "w") as f:
+            json.dump(out, f, indent=1)
+        
+        return out
+
+    def match_timescale(self, asset_one, asset_two):
+
+        merged_df = asset_one.merge(asset_two, on='date', how='inner')
+
+        stock_one_returns = merged_df['change_percentage_x'].tolist()
+        stock_two_returns = merged_df['change_percentage_y'].tolist()
+
+        return stock_one_returns, stock_two_returns
