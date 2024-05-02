@@ -9,6 +9,7 @@ A very basic application to showcase pythons use for calcualting commonly used s
   - Weighted Portfolio Beta
   - Additional Asset impact on overall weighted portfolio Beta
   - Correlation Coefficient between each individual assets
+  - Calculate CAPM based on your set Risk Free Rate & Expected Market Return
 
 ![image](https://github.com/realLew1s/portfolio-risk-analysis/assets/131590570/c1770286-d0e8-46c3-a948-d7a0f9fb1479)
 

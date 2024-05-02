@@ -3,30 +3,30 @@
         "stock_code": "A200",
         "exchange_code": "AU",
         "classification": "Diversified Growth",
-        "weighting": 0.2985
+        "weighting": 0.2902
     },
     {
         "stock_code": "VDBA",
         "exchange_code": "AU",
-        "weighting": 0.3025,
+        "weighting": 0.2957,
         "classification": "Diversified Growth"
     }, 
     {
         "stock_code": "VAP",
         "exchange_code": "AU",
         "classification": "Property",
-        "weighting": 0.3006
+        "weighting": 0.29341
     },
     {
         "stock_code": "MVR",
         "exchange_code": "AU",
         "classification": "Resources",
-        "weighting": 0.055
+        "weighting": 0.07624
     }, 
     {
         "stock_code": "BET",
         "exchange_code": "AU",
         "classification": "Speculative",
-        "weighting": 0.0433
+        "weighting": 0.0443
     }
 ]

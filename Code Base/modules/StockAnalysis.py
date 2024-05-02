@@ -181,7 +181,9 @@ class AssetCovariances:
 
             json_out = {
                 "a1": asset_one,
+                "a1_class": asset_one_df['classification'].values[0],
                 "a2": asset_two,
+                "a2_class": asset_two_df['classification'].values[0],
                 "correlation": correlation
             }
 
@@ -200,3 +202,26 @@ class AssetCovariances:
         stock_two_returns = merged_df['change_percentage_y'].tolist()
 
         return stock_one_returns, stock_two_returns
+
+class CAPM:
+    def __init__(self, stock_betas, rf, mr): 
+        self.stock_betas = stock_betas
+        self.risk_free = rf
+        self.market_return = mr
+    
+    def calc_capm(self):
+        
+        stock_capm = []
+        for j in self.stock_betas:
+            expected_return = self.risk_free + j['beta']*(self.market_return - self.risk_free)
+            temp_dict = {
+                "stock_code": j['stock_code'],
+                "beta": j['beta'],
+                "required_return": expected_return
+            }
+            stock_capm.append(temp_dict)
+
+        with open('stock_capm.json', "w") as f:
+            json.dump(stock_capm, f, indent=1)
+
+        return stock_capm        

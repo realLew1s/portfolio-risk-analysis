@@ -11,6 +11,7 @@ from modules.Visualisations import BreachStdVisual
 from modules.PortfolioAnalysis import PortfolioWeightedBeta
 from modules.PortfolioAnalysis import AdditionalStockImpact
 from modules.StockAnalysis import AssetCovariances
+from modules.StockAnalysis import CAPM
 from modules.StockAnalysis import DataPreparation
 
 
@@ -42,6 +43,7 @@ def menu():
     print("    [6] Weighted Portfolio Beta               ")
     print("    [7] Additional Asset Beta Impact          ")
     print("    [8] Correlation Coefficient               ")
+    print("    [9] Calculate CAPM for each asset         ")
     print("                                              ")
     print("    [EXIT] to exit the application...         ")
     print("                                              ")
@@ -120,6 +122,14 @@ def menu():
         outcome = assess_covariance_inst(datafile, fetched_data_period, api_key)
         if outcome == True:
             print("Outputted asset correlations... returning to menu in 5 seconds")
+            time.sleep(5)
+            menu()
+    elif selection == '9':
+        risk_free = input('Please input a Risk Free Rate (i.e. 3month T-Bond): ')
+        mr = input('Please input expected market return (i.e. avg ASX200 return over 5 yrs): ')
+        outcome = capm_calculator(float(risk_free), float(mr))
+        if outcome == True:
+            print("Outputted required returns (CAPM), returning to menu in 5 seconds...") 
             time.sleep(5)
             menu()
     elif selection.upper() == 'EXIT':
@@ -236,6 +246,20 @@ def assess_covariance_inst(datafile, fetched_data_period, api_key):
     covariance_out = covar_inst.assess_covariance()
 
     return True
+
+def capm_calculator(rf, mr):
+    try:
+        with open('Asset Betas.json', "r") as f:
+            beta_data = json.load(f)
+    except:
+        print('[ERROR] Please generate asset beta data first :)')
+        exit()
+    
+    capm_instance = CAPM(beta_data, rf, mr)
+    capm_instance.calc_capm()
+
+    return True
+
 
 if __name__ == '__main__':
     main()
