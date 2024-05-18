@@ -27,7 +27,7 @@ class DataFetcher:
     
     def index_data_fetcher(self, index_code):
         try:
-            data_request = requests.get(f"{self.base_url}{index_code}?api_token={self.api_key}&period={self.period}&fmt=json").json()
+            data_request = requests.get(f"{self.base_url}{index_code}?api_token={self.api_key}&period={self.period}&from=2018-01-01&fmt=json").json()
         except:
             sys.exit(f"Fatal Error: Could not fetch data for {index_code}")
         return pd.DataFrame.from_dict(data_request)

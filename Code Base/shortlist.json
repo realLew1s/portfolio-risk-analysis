@@ -1,17 +1,32 @@
 [
     {
-        "stock_code": "ARF",
+        "stock_code": "WIRE",
         "exchange_code": "AU",
-        "proposed_weighting": 0.05
+        "classification": "Japan",
+        "proposed_weighting": 0.0579
     },
     {
-        "stock_code": "NSR",
+        "stock_code": "QRE",
         "exchange_code": "AU",
-        "proposed_weighting": 0.05
+        "classification": "Japan",
+        "proposed_weighting": 0.0579
+    },
+    {
+        "stock_code": "GDX",
+        "exchange_code": "AU",
+        "classification": "Minerals",
+        "proposed_weighting": 0.0579
+    },
+    {
+        "stock_code": "XMET",
+        "exchange_code": "AU",
+        "classification": "Resources",
+        "proposed_weighting": 0.0579
     },
     {
         "stock_code": "MNRS",
         "exchange_code": "AU",
-        "proposed_weighting": 0.05
+        "classification": "Resources",
+        "proposed_weighting": 0.0579
     }
 ]

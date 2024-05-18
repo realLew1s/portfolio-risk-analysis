@@ -51,10 +51,6 @@ for shortlist data (i.e. for testing the effect of additional assets on weighted
 - ~~Ability to set your period for the data/calculations i.e. daily/weekly/monthly/quarterly~~
 - Ability to load assets, and holding commencement date to get the retrospective daily return of your portfolio (assuming there is reinvestment this I believe is useful)
 - ~~Ability to load a shortlist and identify the best option to add to your portfolio based on the new portfolio beta as a result of the new addition~~
-- Look at adding simulation/portfolio testing i.e. (Monte Carlos)
-- Add classification level statistics (for instance if a portfolio has allocated 20% into the resource sector and this is made up of 5+ individual equities it is useful to understand the STD, VAR, BETA of the overall 20% class)
-- Add an ability to measure the correlation and correlations strength between an asset i.e. BHP.ASX and the commodity price of Iron Ore
-- Weighted classification correlation (self explanatory, to measure correlation between asset classes to enable risk based decision making)
 
 ## Final Notes
 
